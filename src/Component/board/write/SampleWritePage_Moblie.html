@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width,initial-scale=1" />
+
+        <style>
+            body{
+                margin: 0px;
+                height: 100vh;
+                display: flex;
+                flex-direction: column;
+            }
+            
+            #header{
+                margin-top: 30px;
+                
+                display: flex;
+                align-items: center; /* 수직 가운데 정렬 */
+                
+                border-bottom: 1px solid royalblue;
+
+            }
+            #x-bold{
+                width: 20px;
+                height: 20px;
+
+                background-image: url(./image/ph_x-bold.png);
+                background-size: 100% 100%;
+
+                margin-left: 30px;
+                margin-right: 30px;
+            }
+
+            /*<div id="photolayer">*/
+            #photolayer{
+                display: flex;
+
+            }
+            #selectphoto{
+                background-image: url(./image/SelectPhoto.png);
+                margin: 30px;
+                margin-right: 30px;
+            }
+            #takephoto{
+                background-image: url(./image/TakePhoto.png);
+                margin: 30px;
+                margin-left: 0px;
+            }
+
+            .photo{
+                width: 80px;
+                height: 80px;
+                background-size: 100% 100%;
+            }
+            .textlayer{
+                margin-left: 30px;
+            }
+            /**/
+
+            /*<div class="category">*/
+            .category{
+                display: flex;
+            }
+            #season{background-image: url(./image/category/Season.png);}
+            #smalltalk{background-image: url(./image/category/SmallTalk.png);}
+            #share{background-image: url(./image/category/Share.png);}
+            #useafter{background-image: url(./image/category/UseAfter.png);}
+            .category_element{
+                width: 60px;
+                height: 28px;
+                background-size: 100% 100%;
+
+                margin-right: 10px;
+            }
+            /**/
+            input{
+                width: 800px;
+                border-width: 0 0 1px;
+                outline: none;
+            }
+            textarea{
+                height: auto;
+                overflow-y: hidden;
+
+
+
+            }
+
+
+            .btnSubmit{
+                display: block;
+
+                color: white; 
+                padding: 15px 25px;
+                display: inline-block;
+                border: 1px solid rgba(0,0,0,0.21);
+                border-bottom-color: rgba(0,0,0,0.34);
+                text-shadow:0 1px 0 rgba(0,0,0,0.15);
+                box-shadow: 0 1px 0 rgba(255,255,255,0.34) inset, 
+                            0 2px 0 -1px rgba(0,0,0,0.13), 
+                            0 3px 0 -1px rgba(0,0,0,0.08), 
+                            0 3px 13px -1px rgba(0,0,0,0.21);
+                width: 328px;
+                height: 48px;
+
+                border-radius: 10px;
+                background-color: #7fb1bf;
+                
+
+                
+            }
+
+
+            .btnSubmit:active {
+                top: 1px;
+                border-color: rgba(0,0,0,0.34) rgba(0,0,0,0.21) rgba(0,0,0,0.21);
+                box-shadow: 0 1px 0 rgba(255,255,255,0.89),0 1px rgba(0,0,0,0.05) inset;
+                position: relative;
+            }
+            #btn{
+                display: flex;
+                justify-content: center; /* 수평 가운데 정렬 */
+                align-items: center; /* 수직 가운데 정렬 */
+                margin-left: 30px;
+                margin-top: auto;
+                margin-bottom: 30px; 
+            }
+            
+        </style>
+    </head>
+
+    <body>
+        <div id="header">
+            <div id="x-bold"></div>
+            <h2>내 게시글 올리기</h2>
+        </div>
+        <div id="photolayer">
+            <div id="selectphoto" class="photo"></div>
+            <div id="takephoto" class="photo"></div>
+        </div>
+
+        <div class="textlayer">
+
+            <h3>카테고리</h3>
+            <div class="category">
+                <div id="season" class="category_element"></div>
+                <div id="smalltalk" class="category_element"></div>
+                <div id="share" class="category_element"></div>
+                <div id="useafter" class="category_element"></div>
+            </div>
+
+            <label>
+                <h3>글 제목</h3>
+                <input type="text" name="title" placeholder="최대 40자"/>
+            </label>
+
+            <label>
+                <h3>글 본문</h3>  
+                <textarea name="content" placeholder="최대 1000자"></textarea>
+                <br/>
+            </label>
+
+            
+        </div>
+            <div id="btn">
+                <button class="btnSubmit">작성 완료</button>
+            </div>
+        
+
+    </body>
+</html>

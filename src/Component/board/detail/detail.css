@@ -1,0 +1,98 @@
+#detail-body{
+    display: flex;
+    flex-direction: column;
+    margin-left: 20%;
+    height: 100vh;
+    
+}
+
+#detail-container{
+    border: 1px solid;
+    border-color: rgb(156,163,175); 
+    width: 60vw;
+   
+   
+}
+
+#detail-title{
+    display: flex;
+    
+    margin: 15px;
+}
+
+#title-element2{
+    margin-left: auto;
+    
+    
+}
+
+#detail-content{
+    margin: 15px;
+}
+
+#detail-bottom{
+    display: flex;
+}
+
+#detail-bottom-element1{
+    margin: 15px;
+    margin-top: 0px;
+}
+
+#detail-bottom-element2{
+    
+    margin-left: auto;
+    margin-right: 15px;
+    
+}
+
+#blue-bar{
+    display: flex;
+    background-color: rgb(	232, 241, 255);
+    align-items: center; /* 수직 가운데 정렬 */
+    
+}
+
+#blue-bar-e1{
+    margin: 10px;
+    margin-left: 20px;
+}
+
+
+.btn button{
+    border: 0;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+#reply{
+    margin: 20px;
+}
+
+#reply textarea{
+    border: 1px solid black;
+}
+
+.reply-element{
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+
+
+    border-bottom: 2px solid rgb(217, 217, 217);
+}
+.e{
+    margin-bottom: 10px;
+    word-break: break-all;
+}
+
+#check-btn { display: none; }
+#check-btn:checked ~ .menubars { display: block; } 
+.menubars { display: none; padding-left: 0px; }
+
+
+
+
+.comment{
+    height: 100px;
+}

@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            body{
+                margin: 0px;
+            }
+
+            #header{
+                /* background 설정*/
+                height: 72px;
+                background-color: rgb(232, 241, 255);
+
+                /* display 설정*/
+                display: flex;
+                /*justify-content: center;  수평 가운데 정렬 */
+                align-items: center; /* 수직 가운데 정렬 */
+            }
+
+            #header_body{
+                display: flex;
+                flex-grow: inherit;
+                width:  60vw;
+                margin-left: 20%;
+            }
+
+            #logo{
+                font-size: 24px; 
+                font-family: Arial, Helvetica, sans-serif;
+                font-weight: bolder;
+            }
+
+            #slope{
+                margin-left: 40%;
+            }
+
+            .header_component{
+                font-size: 20px;
+                font-weight: 600;
+                font-family: Arial, Helvetica, sans-serif;
+                border: 0;
+                outline: 0;
+                background-color: rgb(232, 241, 255);
+                flex-grow: 1;
+                text-align: right;
+                
+            }
+            /**/
+            #community_body{
+                display: flex;
+                flex-direction: column;
+                margin-left: 20%;
+                height: 100vh;
+            }
+            /**/
+            #bigbox{
+                background-color: rgb(232,	241,255);
+                width: 60vw;
+                height: 800px; /*짤림 현상 발생: 수정 필요할 듯!*/
+            }
+            #innerbox{
+                margin-left: 5%;
+                margin-right: 5%;
+            }
+
+            #whitebox1{
+                background-color: rgb(232,	241,255);
+                height: 120px;
+            }
+            /**/
+            #photolayer{
+                display: flex;
+
+            }
+            #selectphoto{
+                background-image: url(./image/SelectPhoto_before.png);
+                margin: 20px;
+                margin-right: 0px;
+
+            }
+            #takephoto{
+                background-image: url(./image/TakePhoto_before.png);
+                margin: 20px;
+
+            }
+
+            .photo{
+                width: 80px;
+                height: 80px;
+                background-size: 100% 100%;
+            }
+            /**/
+            #boardwrite{
+                background-color: white;
+                height: 487px; /* 브라우저 크기가 487px 보다 작으면 짤림 논의해봐야 할 듯.*/
+            }
+
+            #font_option{
+                display: flex;
+                height: 50px;
+                background-color: white;
+                border-bottom: 2px solid;
+                border-color: rgb(	147,147,147);
+            }
+
+            #select{
+                outline: 0px;
+            }
+            input{
+               /* 일정 기준아래로 떨어지면, 모바일 버전으로 바꿀까???*/ 
+                border-width: 0 0 1px;
+                outline: none;
+
+            }
+            #content{
+                margin-left: 5%;
+                margin-right: 5%;
+            }
+
+            #title{
+                border-bottom: 2px solid;
+                border-color: rgb(147,147,147);
+                margin-left: 5%;
+                margin-right: 5%;
+            }
+
+            input[name = "title"]{
+                padding-top: 30px;
+                font-size: 20px;
+                border-bottom: 0px;
+                width: 100%;
+                
+            }
+
+            textarea{
+                height: auto;
+                overflow-y: hidden;
+                border-width: 0 0 0px;
+                outline: none;
+                width: 100%;
+                resize: none;
+
+                overflow-wrap: break-word;
+                word-break: break-all;
+                white-space: pre-wrap;
+
+                padding-top: 20px;
+
+
+
+            }
+
+
+        </style>
+
+    </head>
+
+    <body>
+        <div id="header">
+            <div id ="header_body">
+                <div id="logo">Snow Hub</div>
+                <button id="slope" class="header_component">스키장별 슬로프</button>
+                <button id="community" class="header_component">커뮤니티</button>
+                <button id="signup" class="header_component">회원가입</button>
+            </div>
+        </div>
+
+        <div id="community_body">
+            <h2>< Community | 게시글 작성하기 </h2>
+            <div id="bigbox">
+
+
+
+                <div id="innerbox">
+                    <h2>나의 게시글 작성하기</h2>
+
+                    <div id="whitebox1">
+                        <div id="photolayer">
+                            <div id="selectphoto" class="photo"></div>
+                            <div id="takephoto" class="photo"></div>
+                        </div>
+                    </div>
+
+                    <div id="boardwrite">
+
+                        <div id="title">
+                            <input type="text" name="title" placeholder="제목을 입력하세요">
+                        </div>
+
+                        <div id="font_option">
+                            외부에서 만든 소스 참조?
+                        </div>
+
+                        <div id="content">
+                            <div id="write">
+                                <textarea name="content" placeholder="최대 5,000자"></textarea>
+                            </div>
+                        </div>
+                        
+                    </div>
+
+                </div>
+
+
+
+            </div>
+
+
+        </div>
+
+    </body>
+
+</html>

@@ -1,0 +1,94 @@
+/* 프론트 본문 내용 넣기 위한 컨테이너*/
+#community_body{
+    display: flex;
+    flex-direction: column;
+    margin-left: 20%;
+    height: 100vh;
+}
+
+/* 카테고리 선택 번튼에 대한 속성*/
+#select{
+    display: flex;
+    margin-top: 10px;
+    margin-bottom: 30px;
+}
+.select_component{
+    margin-right: 10px;
+}
+
+/* BoardList를 위한 속성*/
+#boardlist{
+    width: 100px;
+    
+    border: 1px solid;
+    border-color: rgb(156, 163, 175);
+    width: 60vw;
+}
+
+
+/**/
+
+#boardlist_1{
+    margin-left: 20px;
+}
+
+/**/
+#boardlist_2{
+    display: grid;
+    background-color: rgb(96, 135, 211);
+    grid-template-columns: 7fr 1fr 1fr 1fr;
+    padding: 5px;
+}
+
+#first{
+    flex-grow: 7;
+}
+
+.element1{
+    flex-grow: 1;
+    text-align: center;
+    color: white;
+}
+/**/
+.content_conatiner{
+    margin-left:  5px;
+    margin-right: 3px;
+}
+.content{
+    display: grid;
+    grid-template-columns: 1.5fr 5.5fr 1fr 1fr 1fr;
+    padding: 10px;
+    border-top: 1px solid;
+    border-color: rgb(156,163,175);
+    
+}
+
+.c{
+    text-align:center;
+}
+
+.c_title{
+    text-align:left;
+}
+
+#pagination{
+    width:  60vw;
+    display: flex;
+    justify-content: center; /* 수평 가운데 정렬 */
+    align-items: center; /* 수직 가운데 정렬 */
+    
+}
+#pagination_bar{
+    display: grid;
+    background-image: url(image/Paginationbar.png);
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    justify-content: center; /* 수평 가운데 정렬 */
+    align-items: center; /* 수직 가운데 정렬 */
+    text-align: center;
+    width: 409px;
+    height: 40px;
+}
+
+.page_btn{
+    background-color: rgb(232,241,255);
+}

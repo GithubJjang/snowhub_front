@@ -1,0 +1,103 @@
+              //: if request.time < timestamp.date(2024, 6, 4);
+              
+              // './image/abcde.png'
+
+              // Register three observers:
+              // 1. 'state_changed' observer, called any time the state changes
+              // 2. Error observer, called on failure
+              // 3. Completion observer, called on successful completion
+              /*
+              uploadTask.on('state_changed', 
+                (snapshot) => {
+                  // Observe state change events such as progress, pause, and resume
+                  // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+                  const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+                  console.log('Upload is ' + progress + '% done');
+                  switch (snapshot.state) {
+                    case 'paused':
+                      console.log('Upload is paused');
+                      break;
+                    case 'running':
+                      console.log('Upload is running');
+                      break;
+                  }
+                }, 
+                (error) => {
+                  // Handle unsuccessful uploads
+                  console.log(error);
+                }, 
+                () => {
+                  // Handle successful uploads on complete
+                  // For instance, get the download URL: https://firebasestorage.googleapis.com/...
+                  getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+                    console.log('File available at', downloadURL);
+                  });
+                }
+              );
+              console.log("success!!!");
+            */
+
+
+
+
+
+
+
+
+            /*
+              formData.append("image", file);
+              console.log(formData.get("image"));
+              // 이미지 업로드 버튼을 눌렀을 때의 위치를 정의하여 range 변수에 할당
+              const range = quillRef.current.getEditor().getSelection(true);
+
+              axios.post('http://localhost:8000/dummy/write',formData,
+              {
+                  //params: {name: name},
+                  headers: {Authorization: 'Bearer '+getCookie('IdTokenCookie'),
+                  "Access-Control-Allow-Origin": 'http://localhost:3000',
+                  'Access-Control-Allow-Credentials':"true",
+                  'Content-Type': 'multipart/form-data'
+              }
+              
+              })
+              .then(
+                  // 성공했을떄, 반환이 되는 값
+                  (Response) => {
+                  console.log(Response);
+                  alert(Response.data);
+                  console.log(file);
+                  quillRef.current
+                  .getEditor()
+                  .insertEmbed(range.index, 'image', file);
+                  
+              }                
+              )
+            .catch(
+              (error)=>{
+                console.log(error)
+                alert(error);
+              }
+            )
+            */
+              /*
+              try {
+                  // 서버에 post 요청을 보내 업로드 한뒤 이미지 태그에 삽입할 url을 반환받도록 구현
+                  const response = await axios.post('/api/upload', formData);
+
+                  // 백엔드에서 필요한 데이터, 따로 저장
+                  setImages((prevImagesUrlList) => [...prevImagesUrlList, response.data[0]]);
+
+                  // 에디터의 커서 위치에 이미지 삽입
+                  quillRef.current
+                      .getEditor()
+                      .insertEmbed(range.index, 'image', response.data[0]);
+              } catch (error) {
+                  if (axios.isAxiosError(error)) {
+                      // 10MB 이상 데이터 업로드 시 에러 처리
+                      if (error.message === 'Network Error') {
+                          alert('이미지 크기(10MB)를 초과하였습니다.');
+                      }
+                  } else {
+                      console.error(error);
+                  }
+              }*/

@@ -1,0 +1,229 @@
+#header{
+    /* background 설정*/
+    height: 72px;
+    background-color: rgb(232, 241, 255);
+
+    /* display 설정*/
+    display: flex;
+    /*justify-content: center;  수평 가운데 정렬 */
+    align-items: center; /* 수직 가운데 정렬 */
+}
+
+#header_body{
+    display: flex;
+    flex-grow: inherit;
+    width:  60vw;
+    margin-left: 20%;
+}
+
+#logo{
+    font-size: 24px; 
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bolder;
+}
+
+#slope{
+    margin-left: 40%;
+}
+
+.header_component{
+    font-size: 20px;
+    font-weight: 600;
+    font-family: Arial, Helvetica, sans-serif;
+    border: 0;
+    outline: 0;
+    background-color: rgb(232, 241, 255);
+    flex-grow: 1;
+    text-align: right;
+    
+}
+/**/
+#community_body{
+    display: flex;
+    flex-direction: column;
+    margin-left: 20%;
+}
+/*height: 85vh;*/
+#bigbox{
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(232,	241,255);
+    width: 60vw;
+     /*짤림 현상 발생: 수정 필요할 듯! 800px*/
+}
+#innerbox{
+    margin-left: 5%;
+    margin-right: 5%;
+}
+
+#whitebox1{
+    background-color: rgb(232,	241,255);
+    height: 120px;
+}
+/**/
+#photolayer{
+    display: flex;
+
+}
+#selectphoto{
+    background-image: url(./image/SelectPhoto_before.png);
+    margin: 20px;
+    margin-right: 0px;
+
+}
+#takephoto{
+    background-image: url(./image/TakePhoto_before.png);
+    margin: 20px;
+
+}
+
+.photo{
+    width: 80px;
+    height: 80px;
+    background-size: 100% 100%;
+}
+/* height: 70vh;*/
+#boardwrite{
+    background-color: white;
+    min-height: 850px;
+    /* 브라우저 크기가 487px 보다 작으면 짤림 논의해봐야 할 듯.  height: 70vh;*/
+}
+/*
+#font_option{
+    display: flex;
+    height: 50px;
+    background-color: white;
+    border-bottom: 2px solid;
+    border-color: rgb(	147,147,147);
+}
+*/
+
+#select{
+    outline: 0px;
+}
+input{
+   /* 일정 기준아래로 떨어지면, 모바일 버전으로 바꿀까???*/ 
+    border-width: 0 0 1px;
+    outline: none;
+
+}
+#content{
+    height: auto;
+}
+
+#title{
+    border-bottom: 2px solid;
+    border-color: rgb(147,147,147);
+    margin-left: 5%;
+    margin-right: 5%;
+
+    margin-bottom: 20px;
+}
+
+input[name = "title"]{
+    padding-top: 30px;
+    font-size: 20px;
+    border-bottom: 0px;
+    width: 100%;
+    
+}
+
+textarea{
+    height: auto;
+    overflow-y: hidden;
+    border-width: 0 0 0px;
+    outline: none;
+    width: 100%;
+    resize: none;
+
+    overflow-wrap: break-word;
+    word-break: break-all;
+    white-space: pre-wrap;
+
+    padding-top: 20px;
+
+
+}
+
+/* Footer Css*/
+
+#footer{
+    flex: 1;/* flex 남은 부분 가득 채우기*/
+    justify-content: center; /* 수평 가운데 정렬 */
+    align-items: center;
+    
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-top: 30px;
+    margin-bottom: 50px;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+   
+}
+
+#smalltalk{
+    background-image: url(./image/category/web/smalltalk.png);
+}
+#share{
+    background-image: url(./image/category/web/share.png);
+}
+#useafter{
+    background-image: url(./image/category/web/userafter.png);
+}
+#season{
+    background-image: url(./image/category/web/season.png);
+    width: 86px;
+    height: 33px;
+}
+#tmpSave{
+    background-image: url(./image/save/tmpSave.png);
+    width: 127px;
+    height: 39px;
+}
+
+#Save{
+    background-image: url(./image/save/Save.png);
+    width: 127px;
+    height: 39px;
+}
+
+
+.footer_element{
+    background-size: 100%;
+    width: 100px;
+    height: 33px;
+}
+
+
+#footer_1{
+    display: grid;
+    grid-column-gap: 10px;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+#footer_2{
+    display: grid;
+    grid-column-gap: 10px;
+    grid-template-columns: 1fr 1fr 1fr;
+    justify-items: end;
+}
+
+/* Quill Css*/
+/*
+.text-editor{
+    height: 100%;
+    max-height: 450px;
+}
+*/
+
+.ql-toolbar.ql-snow{
+    border: 0px solid #ccc;
+    border-bottom: 1px solid #ccc;
+}
+
+.ql-container.ql-snow {
+    border: 0px;
+}
+.quill{
+    height: 100%;
+}

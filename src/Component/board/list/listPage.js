@@ -111,6 +111,7 @@ const BoardList = ()=>{
             (error) => {}
             )
     },[page,category])
+            // 의존 배열 생략시, return(렌더링) -> useEffect 실행 -> 컴포넌트 업데이트/마운 -> useEffect 실행(무한루프).
 
 
     const body=(

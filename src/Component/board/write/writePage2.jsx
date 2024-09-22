@@ -1,7 +1,7 @@
 import "./write.css";
 //import Editor from "./Editor";
 
-import React, { modules, formats, useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import ReactQuill, { Quill } from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { getCookie, setCookie } from '../../MangeCookies';
@@ -10,65 +10,74 @@ import { getStorage, ref, uploadBytesResumable, getDownloadURL } from 'firebase/
 
 import ImageResize from 'quill-image-resize';
 import axios from 'axios';
+import CategoryButton from "./CategoryButton"
+import SaveButton from "./SaveButton";
+import ImageHandler  from "./ImageHandler";
+
+import {FooterContainer,FooterCategory,FooterSaveBtn} from "./Footer"; // Footer Deco Components
+
 Quill.register('modules/ImageResize', ImageResize);
 
 
 
+const toolOptions = [
+  [{ 'header': [1, 2, false] }],
+  [{ 'color': [] }],
+  ['bold', 'italic', 'underline','strike', 'blockquote'],
+  [{'list': 'ordered'}, {'list': 'bullet'}, {'indent': '-1'}, {'indent': '+1'}],
+  ['link', 'image'],
+  ['clean']
+];
+
+// Quill을 위한 설정정보
+const modules = {
+  toolbar: {
+    container : toolOptions
+  },
+
+  ImageResize: {
+    parchment: Quill.import('parchment')
+  }
+};
+
+const formats = [
+  'header','color',
+  'bold', 'italic', 'underline', 'strike', 'blockquote',
+  'list', 'bullet', 'indent',
+  'link', 'image'
+];
+/* 어떤 변수에 변경감지가 되야! 함수가 실행이 된다.*/
+
 const Webboardwrite = ()=>{
 
     // 외부로 꺼내 전역변수처럼 사용을 하자.
+
+    // 리액트에서는 input과 같이 uncontrolled 하는 것은 항시 초기화를 하려고 한다.
     const [content,setContent] =  useState('');// 변경감지를 위한 변수 선언
     const [title,setTitle] = useState('');
     const [category,setCategory] = useState('');
-    console.log('category: '+category);
+
+    const quillRef = useRef(null); // 현재값을 초기화. useRef가 변한다고 재렌더링 안함 <- 렌더를 안할 요소에 대해서 사용하자.
 
     const navigate = useNavigate();
     // ReactQuill: 여기서 복잡하더라도 추가를 해야 버튼을 원하는 위치에 붙일수 있음. 아니면 할 방법이x( title, content 어떻게 반환??? )
-    const Editor = ()=> {
 
-        //const [content,setContent] =  useState('');// 변경감지를 위한 변수 선언
-        //const [title,setTitle] = useState('');
-        
-      
-        const quillRef = useRef(null);
-      
-        console.log('title: '+title);
-        console.log('content: '+content);
-      
-        const toolOptions = [
-          [{ 'header': [1, 2, false] }],
-          [{ 'color': [] }],
-          ['bold', 'italic', 'underline','strike', 'blockquote'],
-          [{'list': 'ordered'}, {'list': 'bullet'}, {'indent': '-1'}, {'indent': '+1'}],
-          ['link', 'image'],
-          ['clean']
-        ];
-      
-        modules = {
-          toolbar: {
-            container : toolOptions
-          },
-      
-          ImageResize: {
-            parchment: Quill.import('parchment')
-          }
-        };
-      
-        formats = [
-          'header','color',
-          'bold', 'italic', 'underline', 'strike', 'blockquote',
-          'list', 'bullet', 'indent',
-          'link', 'image'
-        ];
-        /* 어떤 변수에 변경감지가 되야! 함수가 실행이 된다.*/
-      
-        
-      
-      
-      
-        useEffect(()=>{
-                  // 이미지를 처리하기 위한 함수
-              // base64 인코딩 방식은 너무 길기 때문에 부적합
+
+
+            useEffect(()=>{ // 첫 마운트시에만 활성이 된다. 왜냐하면 이 기능은 항상 유지됨.
+              if (quillRef.current) {
+                console.log("add ImgHandler");
+                const toolbar = quillRef.current.getEditor().getModule('toolbar');
+                toolbar.addHandler('image', ()=>{ImageHandler(quillRef)}); // 익명함수 안쓰면 Click이 아닌 항상 activate로 간주를 한다.
+            }
+            },[])
+
+
+            // useEffect 설정 수정할 필요가 있다. 일정시간이 지나면 지가 알아서 save를 한다.
+            useEffect(()=>{
+              // 이미지를 처리하기 위한 함수
+              // base64 인코딩 방식은 너무 길기 때문에 부적합 -> Firebase Storage를 쓰자.
+
 
               axios.get('http://localhost:8000/board/tmp',
                       {
@@ -95,99 +104,15 @@ const Webboardwrite = ()=>{
                       console.log(error)
                   }
               )
-              
-      
-              // 1. toolbar에 등록 -> 2.toorbar에서 image 클릭시 하위 코드 활성화
-              const handleImage = () => {
-                console.log("activated");
-                const input = document.createElement('input'); // input 요소를 생성
-                input.setAttribute('type', 'file'); // 어트리뷰터 설정 1
-                input.setAttribute('accept', 'image/*'); // 어트리뷰터 설정 2
-                input.click(); // 파일 선택 대화 상자를 열기 위해 <input> 요소를 클릭
-
-
-                // 대화 상자에서 이미지 선택이 완료되면 실행되는 함수
-                input.onchange = async () => {
-                    // input.files과 Quill 편집기(quillRef.current)가 존재하는지 확인
-                    // 하나라도 존재하지 않으면 함수 종료
-                    if (!input.files || !quillRef.current) return;
-      
-                    // 선택된 파일을 변수에 file 변수에 넣어줌
-                    const file = input.files[0];
-              
-                    const storage = getStorage();
-      
-                    console.log(file);
-                    // Upload file and metadata to the object 'images/mountains.jpg'
-                    const storageRef = ref(storage, file.name);
-                    const uploadTask = uploadBytesResumable(storageRef, file);
-                    const range = quillRef.current.getEditor().getSelection(true);
-      
-                    // Listen for state changes, errors, and completion of the upload.
-                    uploadTask.on('state_changed',
-                      (snapshot) => {
-                        // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
-                        const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-                        console.log('Upload is ' + progress + '% done');
-                        switch (snapshot.state) {
-                          case 'paused':
-                            console.log('Upload is paused');
-                            break;
-                          case 'running':
-                            console.log('Upload is running');
-                            break;
-                        }
-                      }, 
-                      (error) => {
-                        // A full list of error codes is available at
-                        // https://firebase.google.com/docs/storage/web/handle-errors
-                        switch (error.code) {
-                          case 'storage/unauthorized':
-                            // User doesn't have permission to access the object
-                            console.log(error.code)
-                            break;
-                          case 'storage/canceled':
-                            // User canceled the upload
-                            console.log(error.code)
-                            break;
-      
-                          // ...
-      
-                          case 'storage/unknown':
-                            // Unknown error occurred, inspect error.serverResponse
-                            console.log(error.code)
-                            break;
-                        }
-                      }, 
-                      () => {
-                        // Upload completed successfully, now we can get the download URL
-                        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-                          console.log('File available at', downloadURL);
-                          quillRef.current.getEditor().insertEmbed(range.index, 'image', downloadURL);
-                        });
-                      }
-                      // 사용자가 만약 하나의 이미지를 여러번 올릴 경우 -> 이미지는 1개 거기에 대한 참조는 여러개
-                      // 만약 사용자가 해당 이미지를 지웠다. 그래서 firebase에서도 삭제했다.
-                      // 그렇게 하면, 해당 이미지를 참조하는 나머지 이미지에 문제가 발생한다.
-                      // 그 하나의 이미지만 삭제를 했는데, 나머지 동일 이미지들은 참조를 잃는다. 그래서 불러오기 불가능
-                      // 용량에 손해가 있더라도, 그냥 냅두자.
-                    );
-                      // <- quillDummy
-                };
-            };
+            },[]);
             
-            // 툴바에 handleImage 함수 등록
-            if (quillRef.current) {
-                const toolbar = quillRef.current.getEditor().getModule('toolbar');
-                toolbar.addHandler('image', handleImage);
-                //console.log("on");
-            }
-      },[]);
-      
+            
+    const Editor = ()=> {
+
+        console.log('title: '+title);
+        console.log('content: '+content);
+       
           return (
-      
-      
-            
             <div id="boardwrite">
       
                 <div id="title">
@@ -219,9 +144,9 @@ const Webboardwrite = ()=>{
       
       }
     // 전송 컴포넌트
-    const Send = ()=>{
-        //console.log("send");
-        //console.log(content);
+    const sendCallback = useCallback((title,content,category)=>{
+        console.log("send");
+
         const formData = new FormData();
         formData.append('title',title);
         formData.append('content',content);
@@ -289,10 +214,11 @@ const Webboardwrite = ()=>{
           }
       );
       
-      }
+      },[])
+    const tmpSaveCallback = useCallback((title,content,category)=>{ // 그거 컴포넌트 destroy써봐야겠다.
+        console.log("tmp");
 
-    const tmpSave = ()=>{
-       //console.log("send");
+
         //console.log(content);
         const formData = new FormData();
         formData.append('title',title);
@@ -311,7 +237,7 @@ const Webboardwrite = ()=>{
         .then(
             // 성공했을떄, 반환이 되는 값
             (Response) => {
-            console.log(Response);
+            console.log(content);
             alert(Response.data);
             
         }                
@@ -361,7 +287,8 @@ const Webboardwrite = ()=>{
           }
       );
 
-    };
+    }
+    ,[]);
 
     // 결과물 페이지 반환
     const page = 
@@ -382,25 +309,27 @@ const Webboardwrite = ()=>{
 
 
 
-                    <div id="innerbox">
-                        <div><h2>나의 게시글 작성하기</h2></div>
+                    <div style={{
+                      marginLeft : "5%",
+                      marginRight : "5%"
+                    }}>
+                        <h2>나의 게시글 작성하기</h2>
                         {Editor()}
                         
                     </div>
 
-                    <div id="footer">
-                        <div id="footer_1">
-                            <button id="season" className="footer_element" onClick={()=>{setCategory('Season')}}></button>
-                            <button id="smalltalk" className="footer_element" onClick={()=>{setCategory('smallTalk')}}></button>
-                            <button id="share" className="footer_element" onClick={()=>{setCategory('Share')}}></button>
-                            <button id="useafter" className="footer_element" onClick={()=>{setCategory('Review')}}></button>
-                        </div>
-                        <div id="footer_2">
-                            <div></div>
-                            <button id="tmpSave" className="footer_element" onClick={tmpSave}></button>
-                            <button id="Save" className="footer_element" onClick={Send}></button>
-                        </div>
-                    </div>
+                    <FooterContainer>
+                        <FooterCategory>
+                            <CategoryButton type={"season"} func={()=>{setCategory('Season')}}/>
+                            <CategoryButton type={"smalltalk"} func={()=>{setCategory('smallTalk')}}/>
+                            <CategoryButton type={"share"} func={()=>{setCategory('Share')}}/>
+                            <CategoryButton type={"review"} func={()=>{setCategory('Review')}}/>
+                        </FooterCategory>
+                        <FooterSaveBtn>
+                            <SaveButton type="tmpSave" func={()=>{tmpSaveCallback(title,content,category)}}/>
+                            <SaveButton type="save" func={()=>{sendCallback(title,content,category)}}/>
+                        </FooterSaveBtn>
+                    </FooterContainer>
                     
 
 
@@ -416,7 +345,7 @@ const Webboardwrite = ()=>{
 
 export default Webboardwrite;
 
-                        {/*
+                        /*
                         <div id="whitebox1">
                             <div id="photolayer">
                                 <div id="selectphoto" className="photo"></div>
@@ -434,4 +363,34 @@ export default Webboardwrite;
                                 {Editor()}
                             </div>
                         </div>
-                        */}
+                        */
+
+
+
+
+                        // Footer에서의 category 선택 및 저장 버튼
+                        /*
+                                            <div id="footer">
+                        <div id="footer_1">
+                            <button id="season" className="footer_element" onClick={()=>{setCategory('Season')}}></button>
+                            <button id="smalltalk" className="footer_element" onClick={()=>{setCategory('smallTalk')}}></button>
+                            <button id="share" className="footer_element" onClick={()=>{setCategory('Share')}}></button>
+                            <button id="useafter" className="footer_element" onClick={()=>{setCategory('Review')}}></button>
+                        </div>
+                        <div id="footer_2">
+                            <div></div>
+                            <button id="tmpSave" className="footer_element" onClick={tmpSave}></button>
+                            <button id="Save" className="footer_element" onClick={Send}></button>
+                            <Button type={"season"} func={()=>{setCategory('Season')}}></Button>
+                            
+                        </div>
+                    </div>
+
+
+                            <button id="tmpSave" className="footer_element" onClick={tmpSave}></button>
+                            <button id="Save" className="footer_element" onClick={Send}></button>
+
+                            ()=>{} <- 앞쪽 파라미터는 해당 컴포넌트의 event
+                        */
+
+                        

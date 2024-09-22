@@ -284,6 +284,7 @@ const Boarddetail= ()=>{
                                 <div className="e">{replylist[i].name}</div>
                                 <div className="e">{replylist[i].createDate}</div>
                                 <div className="e">{replylist[i].content}</div>
+                                <div className="e">{replylist[i].id}</div>
                                 <div>{particle(i)}</div> 
 
                             

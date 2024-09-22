@@ -3,7 +3,7 @@ import axios from "axios";
 import React, { useEffect } from 'react';
 import { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { getCookie, setCookie, removeCookie } from "../../MangeCookies";
+import { getCookie, setCookie} from "../../MangeCookies";
 
 const BoardWrite = ()=>{
     const [title,setTitle] =  useState('');// 변경감지를 위한 변수 선언

@@ -51,10 +51,12 @@
     width: 60vw;
      /*짤림 현상 발생: 수정 필요할 듯! 800px*/
 }
+/*
 #innerbox{
     margin-left: 5%;
     margin-right: 5%;
 }
+*/
 
 #whitebox1{
     background-color: rgb(232,	241,255);
@@ -162,20 +164,7 @@ textarea{
    
 }
 
-#smalltalk{
-    background-image: url(./image/category/web/smalltalk.png);
-}
-#share{
-    background-image: url(./image/category/web/share.png);
-}
-#useafter{
-    background-image: url(./image/category/web/userafter.png);
-}
-#season{
-    background-image: url(./image/category/web/season.png);
-    width: 86px;
-    height: 33px;
-}
+
 #tmpSave{
     background-image: url(./image/save/tmpSave.png);
     width: 127px;
@@ -189,11 +178,7 @@ textarea{
 }
 
 
-.footer_element{
-    background-size: 100%;
-    width: 100px;
-    height: 33px;
-}
+
 
 
 #footer_1{
@@ -227,3 +212,30 @@ textarea{
 .quill{
     height: 100%;
 }
+
+
+
+/*
+#smalltalk{
+    background-image: url(./image/category/web/smalltalk.png);
+}
+#share{
+    background-image: url(./image/category/web/share.png);
+}
+#useafter{
+    background-image: url(./image/category/web/userafter.png);
+}
+#season{
+    background-image: url(./image/category/web/season.png);
+    width: 86px;
+    height: 33px;
+}
+
+
+.footer_element{
+    background-size: 100%;
+    width: 100px;
+    height: 33px;
+}
+
+*/

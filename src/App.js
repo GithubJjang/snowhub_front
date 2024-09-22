@@ -3,7 +3,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './App.css';
 
 import Index from './Component/member/Index';
-import Login from './Component/login/loginPage';
+import LoginPage from './Component/login/LoginPage';
 import PageNotFound from './Component/error/notFound';
 import Logout from './Component/logout';
 import BoardWrite from './Component/board/write/writePage';
@@ -24,7 +24,7 @@ function App() {
     <BrowserRouter>
         <Routes>
             <Route path='/' element={<Index></Index>}></Route>
-            <Route path='/login' element={<Login></Login>}></Route>
+            <Route path='/login' element={<LoginPage></LoginPage>}></Route>
             <Route path='/logout' element={<Logout></Logout>}></Route>
             <Route path='/board/write' element={<Webboardwrite></Webboardwrite>}></Route>
             <Route path='/board/list' element={<BoardList></BoardList>}></Route>

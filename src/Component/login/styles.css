@@ -1,15 +1,5 @@
-
                   body{
                       margin: 0px;
-                  }
-
-                  #sky {
-                      background-image: url(./images/rectangle_211.png);
-                      background-repeat: no-repeat;
-                      background-size: 100% 100%;
-
-                      width: 55vw; /* 2/3 of viewport width minus padding/margin */
-                      height: 100vh; /* Automatically adjust height to maintain aspect ratio */
                   }
 
                   /* 이미지의 크기는 고정*/
@@ -29,36 +19,30 @@
                       그래서 div width를 나머지 뷰포인트를 가지도록 수정
                   */
 
-                  #snowhub{
-                      background-image: url(./images/snowhub.png);
-                      background-repeat: no-repeat;
-                      background-size: 100% 100%;
-                      width: 230px;
-                      height: 56px;    
-                      
-                  }
+
 
                   #container {
                       display: flex;
                   }
-                  
-                  #label{
-                      margin-top: 50px;
-                  }
 
-                  .loginbtn{
+                  
+                  #sky {
+                      background-image: url(./images/rectangle_211.png);
                       background-repeat: no-repeat;
                       background-size: 100% 100%;
-                      width: 260px;
-                      height: 40px;  
-                      margin-bottom: 10px;
+
+                      width: 55vw; 
+                      height: 100vh; 
                   }
+                  
+
+
 
                   /*
                       미디어 쿼리로 재정렬
                       맨 아래로 놓고, cacasding 순위 재정렬
                   */
-                  @media(max-width:500px){
+                  @media(max-width:600px){
                       #container{
                           display: flex;
                           flex-direction: column;
@@ -79,6 +63,35 @@
 
                   }
                 
+
+
+
+
+
+/*
+Styled 컴포넌트 안쓰니까 style.css 너무 커져서 뭐가 뭔지 알아보기가 힘듦.
+
+                  #sky {
+                      background-image: url(./images/rectangle_211.png);
+                      background-repeat: no-repeat;
+                      background-size: 100% 100%;
+
+                      width: 55vw; 
+                      height: 100vh; 
+                  }
+
+
+
+                  .loginbtn{
+                      background-repeat: no-repeat;
+                      background-size: 100% 100%;
+                      width: 260px;
+                      height: 40px;  
+                      margin-bottom: 10px;
+                  }
+
+
+
                   #kakao{
                     background-image: url(./images/kakao_login.png);
                   }
@@ -92,8 +105,23 @@
                     background-image: url(./images/apple_login.png);
                   }
 
-                  button{
+
+                                    button{
                     border: none;
                     cursor: pointer;
                   }
-            
+
+                  #label{
+                      margin-top: 50px;
+                  }
+
+
+                                    #snowhub{
+                      background-image: url(./images/snowhub.png);
+                      background-repeat: no-repeat;
+                      background-size: 100% 100%;
+                      width: 230px;
+                      height: 56px;    
+                      
+                  }
+*/
